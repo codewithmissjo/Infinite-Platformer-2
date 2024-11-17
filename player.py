@@ -17,12 +17,16 @@ class Player(pygame.sprite.Sprite):
         if self.facing != "R":
             self.facing = "R"
             self.image = pygame.transform.flip(self.image, True, False)
+        if self.rect.left > 400:
+            self.rect.right = 0
     
     def move_left(self):
         self.speed[0] = -2
         if self.facing != "L":
             self.facing = "L"
             self.image = pygame.transform.flip(self.image, True, False)
+        if self.rect.right < 0:
+            self.rect.left = 400
 
 
 
