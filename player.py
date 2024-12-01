@@ -28,6 +28,12 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = p.rect.top
                 self.speed[1] = self.jump_speed
         
+        # scrolling platforms
+        if self.rect.top < 100:
+            self.rect.top = 100
+            for pl in platforms.sprites():
+                pl.scroll(-1 * self.speed[1])
+
         # gravity
         self.speed[1] += 0.5
         

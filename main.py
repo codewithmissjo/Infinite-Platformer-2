@@ -3,10 +3,15 @@ import pygame
 from pygame.locals import *
 from player import Player
 from grass import Platform
+import random
 
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((400, 600))
+
+screen_info = pygame.display.Info()
+size = (width, height) =  (screen_info.current_w,
+screen_info.current_h)
 
 bg = (255, 224, 179)
 pl = pygame.sprite.GroupSingle()
@@ -14,7 +19,10 @@ gr = pygame.sprite.Group()
 
 def setup():
     pl.add(Player())
-    gr.add(Platform())
+
+    for i in range(height // 100):
+        for j in range(width // 200):
+            gr.add(Platform( random.randint(5, (width - 50) // 10) * 10, 120 * i))
 
 def main():
     setup()
