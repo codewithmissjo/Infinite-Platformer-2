@@ -7,10 +7,30 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.speed = pygame.math.Vector2(0, 0)
         self.facing = "R"
+        self.rect.center = [200, 200]
+        self.jump_speed = -14
     
-    def update(self):
+    def update(self, platforms):
         self.rect.move_ip(self.speed)
         self.speed[0] = 0
+
+        # infinite x axis
+        if self.rect.right < 0:
+            self.rect.left = 400
+        elif self.rect.left > 400:
+            self.rect.right = 0
+        
+        # y speed stuff
+        hit_list = pygame.sprite.spritecollide(self, platforms, False)
+        for p in hit_list:
+            # look for player landing on top of platform
+            if self.speed[1] > 0 and abs(self.rect.bottom - p.rect.top) <= self.speed[1]:
+                self.rect.bottom = p.rect.top
+                self.speed[1] = self.jump_speed
+        
+        # gravity
+        self.speed[1] += 0.5
+        
 
     def move_right(self):
         self.speed[0] = 2

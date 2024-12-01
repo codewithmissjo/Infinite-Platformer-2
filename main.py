@@ -32,8 +32,9 @@ def main():
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             pl.sprite.move_left()
 
+
         # Update Sprites
-        pl.update()
+        pl.update(gr)
 
         # Draw Sprites
         screen.fill(bg)
